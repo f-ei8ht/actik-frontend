@@ -91,6 +91,16 @@ function ScanClient() {
     return (
       <ScanFrame>
         <div className="mx-auto flex max-w-md flex-col items-center gap-4 py-20 text-center">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="self-start"
+            onClick={() => router.push("/")}
+          >
+            <ArrowLeft data-icon="inline-start" />
+            Back
+          </Button>
           <p className="text-lg font-medium text-foreground">Scan a repository</p>
           <form onSubmit={rescan} className="flex w-full items-center gap-3">
             <Input
