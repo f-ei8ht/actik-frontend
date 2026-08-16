@@ -1,0 +1,27 @@
+# actik
+
+> actik is a supply-chain security tool. It scans any public repository, reads the lockfiles, and traces the blast radius of compromised dependencies on a graph powered by HydraDB.
+
+## Product
+
+- [Homepage](https://actik.xyz/)
+- [GitHub](https://github.com/f-ei8ht/actik-backend)
+
+## What actik does
+
+- Scans any public repository from GitHub, GitLab, Bitbucket, or Codeberg by reading its lockfiles directly, with no cloning or API token.
+- Computes the blast radius of a compromised package: which of your services resolve it, directly or transitively.
+- Replays the graph as-of any date ("time travel") to show which applications resolved a compromised version while the advisory was live.
+- Simulates worm-style propagation: if a package is compromised at 09:00, actik shows which services are exposed by 09:06.
+- Watches OSV for every scanned version and alerts on newly flagged advisories with their exposure path.
+- Returns a minimal-fix set: the fewest package upgrades that clear the blast radius, each verified by re-traversing HydraDB.
+
+## How it uses HydraDB
+
+actik stores a graph of packages, versions, dependencies, advisories, and repository lockfile resolutions in HydraDB. Blast radius, time travel, and worm propagation are graph traversals over dependency and advisory edges, which a vector or relational database structurally cannot answer.
+
+## Important links
+
+- [Features](https://actik.xyz/#features)
+- [FAQ](https://actik.xyz/#faq)
+- [GitHub repository](https://github.com/f-ei8ht/actik-backend)
