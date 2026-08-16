@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight, Activity, Bell, History, Radar } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -9,10 +10,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 
 const SCANS = [
-  { icon: Radar, label: "Blast radius" },
-  { icon: Activity, label: "Worm simulation" },
-  { icon: History, label: "Time travel" },
-  { icon: Bell, label: "Live watch" },
+  { icon: Radar, label: "Blast radius", url: "/scan" },
+  { icon: Activity, label: "Worm simulation", url: "/packages" },
+  { icon: History, label: "Time travel", url: "/packages" },
+  { icon: Bell, label: "Live watch", url: "/watch" },
 ]
 
 export function Scanner() {
@@ -68,14 +69,15 @@ export function Scanner() {
 
             <div className="flex flex-wrap justify-center gap-3">
               {SCANS.map((scan) => (
-                <Button
-                  key={scan.label}
-                  variant="outline"
-                  size="sm"
-                >
-                  <scan.icon data-icon="inline-start" />
-                  {scan.label}
-                </Button>
+                <Link key={scan.label} href={scan.url}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                  >
+                    <scan.icon data-icon="inline-start" />
+                    {scan.label}
+                  </Button>
+                </Link>
               ))}
             </div>
           </CardContent>

@@ -1,4 +1,13 @@
-import type { GraphPackage, InvestigateResult, ScanResult } from "@/lib/types"
+import type {
+  DependencyGraph,
+  ExposureWindowResult,
+  GraphPackage,
+  Incident,
+  InvestigateResult,
+  PropagationResult,
+  ScanResult,
+  WatchStatus,
+} from "@/lib/types"
 
 export class ApiError extends Error {}
 
@@ -55,4 +64,65 @@ export async function listPackages(ecosystem?: string): Promise<GraphPackage[]> 
   const query = ecosystem ? `?ecosystem=${encodeURIComponent(ecosystem)}` : ""
   const body = await request<ListPackagesResponse>(`/api/packages${query}`)
   return body.packages
+}
+
+export function getDependencyGraph(
+  ecosystem: string,
+  name: string,
+  version: string
+): Promise<DependencyGraph> {
+  const eco = ecosystem ? `?ecosystem=${encodeURIComponent(ecosystem)}` : ""
+  return request<DependencyGraph>(
+    `/api/packages/${encodeURIComponent(name)}/${encodeURIComponent(version)}/graph${eco}`
+  )
+}
+
+export function getExposureWindow(
+  advisoryId: string,
+  asOf?: string
+): Promise<ExposureWindowResult> {
+  const query = asOf ? `?asOf=${encodeURIComponent(asOf)}` : ""
+  return request<ExposureWindowResult>(
+    `/api/advisories/${encodeURIComponent(advisoryId)}/exposure-window${query}`
+  )
+}
+
+export function getWatchStatus(): Promise<WatchStatus> {
+  return request<{ watch: WatchStatus }>("/api/watch/status").then((body) => body.watch)
+}
+
+export async function runLiveWatch(): Promise<WatchStatus> {
+  const body = await request<{ watch: WatchStatus }>("/api/watch/run", {
+    method: "POST",
+  })
+  return body.watch
+}
+
+export function getRecentIncidents(limit = 20): Promise<Incident[]> {
+  return request<{ incidents: Incident[] }>(
+    `/api/watch/incidents?limit=${limit}`
+  ).then((body) => body.incidents)
+}
+
+export interface SimulateOptions {
+  compromisedAt?: string
+  perHopMs?: number
+  maxDepth?: number
+}
+
+export function simulatePropagation(
+  name: string,
+  version: string,
+  ecosystem?: string,
+  options: SimulateOptions = {}
+): Promise<PropagationResult> {
+  const params = new URLSearchParams()
+  if (ecosystem) params.set("ecosystem", ecosystem)
+  if (options.compromisedAt) params.set("compromisedAt", options.compromisedAt)
+  if (options.perHopMs) params.set("perHopMs", String(options.perHopMs))
+  if (options.maxDepth) params.set("maxDepth", String(options.maxDepth))
+  const query = params.size ? `?${params.toString()}` : ""
+  return request<PropagationResult>(
+    `/api/simulate/propagation/${encodeURIComponent(name)}/${encodeURIComponent(version)}${query}`
+  )
 }

@@ -178,4 +178,23 @@
   html {
     @apply font-sans;
   }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+:root {
+  --sigma-background-color: var(--background);
+  --sigma-controls-background-color: var(--card);
+  --sigma-controls-background-color-hover: var(--muted);
+  --sigma-controls-border-color: var(--border);
+  --sigma-controls-color: var(--foreground);
+}
+.dark {
+  --sigma-background-color: var(--background);
+  --sigma-controls-background-color: var(--card);
+  --sigma-controls-background-color-hover: var(--muted);
+  --sigma-controls-border-color: var(--border);
+  --sigma-controls-color: var(--foreground);
 }

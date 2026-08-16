@@ -1,6 +1,7 @@
 "use client"
 
 import { Check, Copy, ExternalLink } from "lucide-react"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -33,12 +34,12 @@ export function FindingCard({ finding }: { finding: ScanFinding }) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
             <CardTitle className="font-mono text-base">
-              <a
+              <Link
                 href={`/packages/${finding.ecosystem}/${finding.package}/${finding.resolvedVersion}`}
                 className="text-foreground underline-offset-2 hover:underline"
               >
                 {finding.package}
-              </a>
+              </Link>
               <span className="text-destructive">@{finding.resolvedVersion}</span>
             </CardTitle>
             <SeverityBadge severity={finding.severity} />

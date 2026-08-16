@@ -5,15 +5,19 @@ import { useParams, useRouter } from "next/navigation"
 import { Suspense, useEffect, useState } from "react"
 
 import { PageFrame } from "@/components/page-frame"
+import { BlastGraph } from "@/components/scan/blast-graph"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { SeverityBadge } from "@/components/scan/severity-badge"
-import { investigate } from "@/lib/api"
+import { TimeTravel } from "@/components/scan/time-travel"
+import { WormSimulation } from "@/components/scan/worm-simulation"
+import { getDependencyGraph } from "@/lib/api"
 import { advisoryUrl } from "@/lib/advisory"
-import type { InvestigateResult } from "@/lib/types"
+import { investigationKey, useInvestigationStore } from "@/lib/stores/investigations"
+import type { DependencyGraph } from "@/lib/types"
 
 export default function PackagePage() {
   return (
@@ -49,31 +53,37 @@ function PackageClient() {
   const version = hasVersion ? last : ""
   const name = hasVersion ? slug.slice(0, -1).join("/") : slug.join("/")
   const ecosystem = params.ecosystem ?? ""
+  const key = investigationKey(ecosystem, name, version)
 
-  const [result, setResult] = useState<InvestigateResult | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const load = useInvestigationStore((state) => state.load)
+  const result = useInvestigationStore((state) => state.get(key))
+  const loading = useInvestigationStore((state) => state.isPending(key))
+  const error = useInvestigationStore((state) => state.getError(key))
 
   useEffect(() => {
     if (!name) return
+    load(key, ecosystem, name, version).catch(() => {
+      // Error is stored in the store and surfaced via getError(key).
+    })
+  }, [key, ecosystem, name, version, load])
+
+  const [graph, setGraph] = useState<DependencyGraph | null>(null)
+  const resolvedVersion = result?.version ?? version
+
+  useEffect(() => {
+    if (!name || !resolvedVersion) return
     let cancelled = false
-    setLoading(true)
-    setError(null)
-    setResult(null)
-    investigate(ecosystem, name, version)
+    getDependencyGraph(ecosystem, name, resolvedVersion)
       .then((data) => {
-        if (!cancelled) setResult(data)
+        if (!cancelled) setGraph(data)
       })
-      .catch((err: unknown) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : String(err))
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
+      .catch(() => {
+        if (!cancelled) setGraph(null)
       })
     return () => {
       cancelled = true
     }
-  }, [ecosystem, name, version])
+  }, [ecosystem, name, resolvedVersion])
 
   if (loading) return <PackageLoading />
 
@@ -90,7 +100,7 @@ function PackageClient() {
             type="button"
             variant="outline"
             className="mt-6"
-            onClick={() => router.back()}
+            onClick={() => router.push("/packages")}
           >
             <ArrowLeft data-icon="inline-start" />
             Back
@@ -110,7 +120,7 @@ function PackageClient() {
           type="button"
           variant="outline"
           size="sm"
-          onClick={() => router.back()}
+          onClick={() => router.push("/packages")}
         >
           <ArrowLeft data-icon="inline-start" />
           Back
@@ -180,6 +190,7 @@ function PackageClient() {
                           </code>
                         )}
                       </div>
+                      <TimeTravel advisoryId={advisory.id} />
                     </CardContent>
                   </Card>
                 )
@@ -224,6 +235,11 @@ function PackageClient() {
                     {repo}
                   </Badge>
                 ))}
+              </div>
+            )}
+            {graph && (
+              <div className="mt-6">
+                <BlastGraph data={graph} />
               </div>
             )}
           </section>
@@ -283,6 +299,14 @@ function PackageClient() {
               ))}
             </div>
           </section>
+        )}
+
+        {result.blastRadius && (
+          <WormSimulation
+            name={result.package}
+            version={result.version}
+            ecosystem={result.ecosystem}
+          />
         )}
       </div>
     </PageFrame>

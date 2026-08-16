@@ -90,6 +90,27 @@ export interface GraphPackage {
   versions: number
 }
 
+export interface DependencyGraphNode {
+  id: string
+  type: "package" | "advisory" | "repository"
+  label: string
+  severity?: string
+  ecosystem?: string
+  version?: string
+}
+
+export interface DependencyGraphEdge {
+  source: string
+  target: string
+  type: string
+}
+
+export interface DependencyGraph {
+  root: string
+  nodes: DependencyGraphNode[]
+  edges: DependencyGraphEdge[]
+}
+
 export interface InvestigateAdvisory {
   id: string
   severity: string
@@ -167,4 +188,79 @@ export interface InvestigateResult {
   sharedMaintainers: Array<{ maintainer: string; packages: string[] }>
   typosquats: TyposquatCandidate[]
   recommendations: string[]
+}
+
+export interface ExposureApp {
+  repository: string
+  lockfile: string
+  kind: string
+  name: string
+  version: string
+  ecosystem: string
+  requestedVersion: string
+  scannedAt: string
+  conclusion: "EXPOSED" | "AT_RISK" | "NOT_AFFECTED"
+}
+
+export interface ExposureWindowResult {
+  advisory: {
+    id: string
+    severity: string
+    summary: string
+    publishedAt: string
+    modifiedAt: string
+  }
+  window: { start: string; end: string; live: boolean }
+  conclusions: { exposed: string[]; atRisk: string[] }
+  exposedWhileLive: ExposureApp[]
+  currentlyAffected: ExposureApp[]
+  affectedApps: string[]
+}
+
+export interface WatchStatus {
+  lastRunAt: string | null
+  lastChecked: number
+  lastNew: number
+  lastExisting: number
+  lastError: string | null
+}
+
+export interface Incident {
+  advisoryId: string
+  severity: string
+  summary: string
+  package: string
+  version: string
+  ecosystem: string
+  fixedVersion: string
+  firstSeenAt: string
+  repositories: string[]
+  lockfiles: string[]
+  exposurePath: string[]
+}
+
+export interface PropagationApp {
+  repository: string
+  lockfile: string
+  kind: string
+  depth: number
+  direct: boolean
+  chain: string[]
+  exposedAt: string
+}
+
+export interface PropagationResult {
+  package: { name: string; version: string; ecosystem: string }
+  compromisedAt: string
+  perHopMs: number
+  directApps: number
+  transitiveApps: number
+  totalApps: number
+  maxDepth: number
+  firstExposedAt: string | null
+  lastExposedAt: string | null
+  medianExposedAt: string | null
+  spanMs: number
+  apps: PropagationApp[]
+  timeline: Array<{ exposedAt: string; repository: string; depth: number }>
 }

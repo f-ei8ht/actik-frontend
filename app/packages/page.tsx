@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -11,34 +12,21 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { listPackages } from "@/lib/api"
-import type { GraphPackage } from "@/lib/types"
+import { usePackagesStore } from "@/lib/stores/packages"
 
 export default function PackagesPage() {
   const router = useRouter()
   const [ecosystem, setEcosystem] = useState("npm")
   const [name, setName] = useState("")
   const [version, setVersion] = useState("")
-  const [packages, setPackages] = useState<GraphPackage[]>([])
-  const [loading, setLoading] = useState(true)
+
+  const fetchPackages = usePackagesStore((state) => state.fetch)
+  const packages = usePackagesStore((state) => state.packages)
+  const loaded = usePackagesStore((state) => state.loaded)
 
   useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    listPackages()
-      .then((data) => {
-        if (!cancelled) setPackages(data)
-      })
-      .catch(() => {
-        if (!cancelled) setPackages([])
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
+    fetchPackages()
+  }, [fetchPackages])
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault()
@@ -119,19 +107,22 @@ export default function PackagesPage() {
           Packages in the graph
         </h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {loading
+          {!loaded
             ? Array.from({ length: 12 }, (_, i) => (
                 <Skeleton key={i} className="h-7 w-24 rounded-full" />
               ))
             : visible.map((pkg) => (
-                <a key={pkg.name} href={`/packages/${ecosystem}/${pkg.name}`}>
+                <Link
+                  key={pkg.name}
+                  href={`/packages/${ecosystem}/${pkg.name}`}
+                >
                   <Badge
                     variant="outline"
-                    className="font-mono text-xs transition-colors hover:bg-muted hover:text-foreground"
+                    className="cursor-pointer font-mono text-xs transition-colors hover:bg-muted hover:text-foreground"
                   >
                     {pkg.name}
                   </Badge>
-                </a>
+                </Link>
               ))}
         </div>
       </div>

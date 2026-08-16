@@ -7,9 +7,9 @@ const PROJECT_URL = "https://github.com/f-ei8ht/actik-backend"
 
 const NAV_LINKS = [
   { title: "Packages", url: "/packages" },
+  { title: "Scan", url: "/scan" },
+  { title: "Watch", url: "/watch" },
   { title: "How it works", url: "#" },
-  { title: "Pricing", url: "#" },
-  { title: "FAQ", url: "#" },
 ]
 
 export function Header() {

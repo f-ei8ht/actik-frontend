@@ -18,8 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { BreakdownChart } from "@/components/scan/breakdown-chart"
 import { FindingCard } from "@/components/scan/finding-card"
 import { ScoreRing } from "@/components/scan/score-ring"
-import { scanRepository } from "@/lib/api"
-import type { ScanResult } from "@/lib/types"
+import { useScanStore } from "@/lib/stores/scans"
 
 export default function ScanPage() {
   return (
@@ -67,31 +66,19 @@ function ScanClient() {
   const searchParams = useSearchParams()
   const repo = searchParams.get("repo") ?? ""
 
-  const [result, setResult] = useState<ScanResult | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const [input, setInput] = useState(repo)
+
+  const scan = useScanStore((state) => state.scan)
+  const result = useScanStore((state) => state.getScan(repo))
+  const loading = useScanStore((state) => state.getPending(repo))
+  const error = useScanStore((state) => state.getError(repo))
 
   useEffect(() => {
     if (!repo) return
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-    setResult(null)
-    scanRepository(repo)
-      .then((data) => {
-        if (!cancelled) setResult(data)
-      })
-      .catch((err: unknown) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : String(err))
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [repo])
+    scan(repo).catch(() => {
+      // Error is stored in the store and surfaced via getError(repo).
+    })
+  }, [repo, scan])
 
   const rescan = (event: React.FormEvent) => {
     event.preventDefault()

@@ -1,6 +1,7 @@
 import { Inter, Merriweather, JetBrains_Mono, Newsreader } from "next/font/google"
 import type { Metadata } from "next"
 
+import "@react-sigma/core/lib/style.css"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
