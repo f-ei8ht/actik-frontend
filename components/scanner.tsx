@@ -1,10 +1,11 @@
+"use client"
+
 import { ArrowRight, Activity, Bell, History, Radar } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 
 const SCANS = [
@@ -15,6 +16,16 @@ const SCANS = [
 ]
 
 export function Scanner() {
+  const router = useRouter()
+  const [repo, setRepo] = useState("")
+
+  const onSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    const value = repo.trim()
+    if (!value) return
+    router.push(`/scan?repo=${encodeURIComponent(value)}`)
+  }
+
   return (
     <section className="border-t border-border/40">
       <div className="px-6 py-28 text-center lg:px-16">
@@ -35,16 +46,21 @@ export function Scanner() {
               Scan a repository
             </p>
 
-            <div className="mx-auto flex w-full max-w-xl items-center gap-3">
+            <form
+              onSubmit={onSubmit}
+              className="mx-auto flex w-full max-w-xl items-center gap-3"
+            >
               <Input
+                value={repo}
+                onChange={(event) => setRepo(event.target.value)}
                 placeholder="github.com/org/repo"
                 className="flex-1"
               />
-              <Button className="shrink-0 gap-2">
+              <Button type="submit" className="shrink-0">
                 Scan
-                <ArrowRight className="size-4" />
+                <ArrowRight data-icon="inline-end" />
               </Button>
-            </div>
+            </form>
 
             <p className="text-sm text-muted-foreground">
               Works with GitHub, GitLab, Bitbucket, and Codeberg.
@@ -56,9 +72,8 @@ export function Scanner() {
                   key={scan.label}
                   variant="outline"
                   size="sm"
-                  className="gap-2"
                 >
-                  <scan.icon className="size-4" />
+                  <scan.icon data-icon="inline-start" />
                   {scan.label}
                 </Button>
               ))}

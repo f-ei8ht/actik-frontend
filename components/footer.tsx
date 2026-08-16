@@ -96,7 +96,7 @@ export function Footer() {
               rel="noreferrer"
               className={cn(buttonVariants({ size: "sm" }), "gap-2")}
             >
-              <Star className="size-4" />
+              <Star data-icon="inline-start" />
               Star on GitHub
             </a>
           </div>

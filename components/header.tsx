@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 const PROJECT_URL = "https://github.com/f-ei8ht/actik-backend"
 
 const NAV_LINKS = [
-  { title: "Home", url: "#" },
+  { title: "Packages", url: "/packages" },
   { title: "How it works", url: "#" },
   { title: "Pricing", url: "#" },
   { title: "FAQ", url: "#" },
@@ -44,7 +44,7 @@ export function Header() {
             "gap-2"
           )}
         >
-          <ExternalLink className="size-4" />
+          <ExternalLink data-icon="inline-start" />
           GitHub
         </a>
       </div>

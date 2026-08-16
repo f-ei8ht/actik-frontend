@@ -28,7 +28,7 @@ export function Banner() {
           className={cn(buttonVariants({ size: "lg" }), "mt-8 gap-2")}
         >
           Scan a repository
-          <ArrowRight className="size-4" />
+          <ArrowRight data-icon="inline-end" />
         </a>
       </div>
     </section>

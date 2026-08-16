@@ -25,7 +25,7 @@ export function Hero() {
             className={cn(buttonVariants({ size: "lg" }), "gap-2")}
           >
             Scan a repository
-            <ArrowRight className="size-4" />
+            <ArrowRight data-icon="inline-end" />
           </a>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
