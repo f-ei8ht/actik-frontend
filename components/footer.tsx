@@ -1,5 +1,6 @@
-import { ArrowRight, ExternalLink, Star } from "lucide-react"
+import { Star } from "lucide-react"
 
+import { ThemeCycle } from "@/components/theme-cycle"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -49,16 +50,8 @@ export function Footer() {
               Know exactly which of your services are exposed the moment a
               dependency is compromised. Blast radius, powered by HydraDB.
             </p>
-            <div className="mt-6 flex gap-3">
-              <a
-                href={REPO}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
-              >
-                <ExternalLink className="size-4" />
-              </a>
+            <div className="mt-6">
+              <ThemeCycle />
             </div>
           </div>
 

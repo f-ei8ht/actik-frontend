@@ -1,6 +1,6 @@
 "use client"
 
-import { Bot, Copy, Search, Sparkles, Star, Zap } from "lucide-react"
+import { Bot, Copy, Mail, Search, Sparkles, Star, Zap } from "lucide-react"
 import type { ComponentType } from "react"
 
 import { cn } from "@/lib/utils"
@@ -16,6 +16,7 @@ interface AskItem {
   label: string
   href?: string
   copy?: boolean
+  full?: boolean
 }
 
 const ITEMS: AskItem[] = [
@@ -25,6 +26,7 @@ const ITEMS: AskItem[] = [
   { icon: Search, label: "Ask Perplexity" },
   { icon: Zap, label: "Ask Grok" },
   { icon: Copy, label: "Copy prompt", copy: true },
+  { icon: Mail, label: "Talk to a human", href: "mailto:saif.khan16@outlook.com", full: true },
 ]
 
 export function AskAi() {
@@ -35,7 +37,7 @@ export function AskAi() {
   return (
     <section className="border-t border-border/40">
       <div className="grid lg:grid-cols-2">
-        <div className="flex flex-col justify-center px-6 py-16 lg:px-16">
+        <div className="flex flex-col justify-center px-6 py-28 lg:px-16">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
             Ask AI
           </p>
@@ -48,13 +50,14 @@ export function AskAi() {
           </p>
         </div>
 
-        <div className="lg:border-l lg:border-border/40">
-          <div className="grid grid-cols-3">
+        <div className="flex flex-col lg:border-l lg:border-border/40">
+          <div className="grid flex-1 grid-cols-3">
             {ITEMS.map((item, index) => {
               const Icon = item.icon
               const className = cn(
                 "flex flex-col items-center justify-center gap-3 border-b border-border/40 px-4 py-8 text-center transition-colors hover:bg-muted",
-                index % 3 !== 0 && "border-l border-border/40"
+                index % 3 !== 0 && "border-l border-border/40",
+                item.full && "col-span-3 border-l-0"
               )
               if (item.copy) {
                 return (
@@ -88,13 +91,6 @@ export function AskAi() {
               )
             })}
           </div>
-
-          <a
-            href="mailto:saif.khan16@outlook.com"
-            className="block py-5 text-center text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            Talk to a human
-          </a>
         </div>
       </div>
     </section>

@@ -66,8 +66,8 @@ export function Features() {
       <div className="px-6 py-28 lg:px-16">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((feature) => (
-            <Link key={feature.title} href={feature.url} className="group">
-              <Card className="rounded-lg border-none">
+            <Link key={feature.title} href={feature.url} className="group h-full">
+              <Card className="h-full rounded-lg border-none">
                 <CardContent>
                   <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <feature.icon className="size-5" />

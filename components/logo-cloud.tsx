@@ -1,19 +1,14 @@
+import { RecentCvesMarquee } from "@/components/recent-cves-marquee"
+
 export function LogoCloud() {
   return (
     <section className="border-t border-border/40">
-      <div className="px-6 py-18 text-center">
+      <div className="px-6 py-12 text-center">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
           Recent CVEs
         </p>
-        <div className="mt-9 flex items-center justify-center gap-10">
-          <a
-            href="https://hydradb.com/?utm_source=actik"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-md border border-border/60 bg-logo-chip p-1 dark:border-input dark:bg-input/30"
-          >
-            <img src="/hydra.png" alt="HydraDB" className="h-5 w-auto" />
-          </a>
+        <div className="mt-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          <RecentCvesMarquee />
         </div>
       </div>
 

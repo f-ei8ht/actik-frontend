@@ -15,7 +15,7 @@ export function Banner() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" />
       </div>
 
-      <div className="px-6 py-24 text-center lg:px-16">
+      <div className="px-6 py-28 text-center lg:px-16">
         <h2 className="mx-auto max-w-2xl font-newsreader text-4xl font-normal leading-tight text-foreground sm:text-5xl">
           Catch the next worm before it spreads.
         </h2>

@@ -26,11 +26,11 @@ export function Quote() {
             target="_blank"
             rel="noreferrer"
           >
-            <Avatar className="size-24 rounded-lg after:rounded-lg">
+            <Avatar className="aspect-[4/5] h-28 w-auto rounded-lg bg-white after:rounded-lg">
               <AvatarImage
                 src="/ken.jpg"
                 alt="Ken Thompson"
-                className="rounded-lg bg-muted object-contain"
+                className="rounded-lg bg-white object-cover"
               />
               <AvatarFallback className="rounded-lg">KT</AvatarFallback>
             </Avatar>

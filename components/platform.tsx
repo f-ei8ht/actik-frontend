@@ -13,7 +13,7 @@ export function Platform() {
   return (
     <section className="border-t border-border/40">
       <div
-        className="px-6 py-20 text-center"
+        className="px-6 py-28 text-center"
         style={DOTS}
       >
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
