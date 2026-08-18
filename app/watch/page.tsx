@@ -112,7 +112,7 @@ function WatchClient() {
             </Link>
             <Button onClick={handleRun} disabled={running} size="sm">
               <RefreshCw data-icon="inline-start" className={running ? "animate-spin" : ""} />
-              {running ? "Running&hellip;" : "Run watch"}
+              {running ? <span className="shimmer">Running…</span> : "Run watch"}
             </Button>
           </div>
         </div>
