@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 import {
   Avatar,
@@ -56,13 +57,13 @@ export function Quote() {
         <p className="mt-12 font-newsreader text-xl text-foreground">
           Sounds relatable?
         </p>
-        <a
-          href="#"
+        <Link
+          href="/scan"
           className={cn(buttonVariants({ size: "lg" }), "mt-6 gap-2")}
         >
           Scan a repository
           <ArrowRight data-icon="inline-end" />
-        </a>
+        </Link>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -23,13 +24,13 @@ export function Banner() {
           Scan any repository and know exactly which of your services are
           exposed, the moment a package is compromised.
         </p>
-        <a
-          href="#"
+        <Link
+          href="/scan"
           className={cn(buttonVariants({ size: "lg" }), "mt-8 gap-2")}
         >
           Scan a repository
           <ArrowRight data-icon="inline-end" />
-        </a>
+        </Link>
       </div>
     </section>
   )

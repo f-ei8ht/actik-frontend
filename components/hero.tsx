@@ -1,4 +1,5 @@
 import { ArrowRight, HandFist } from "lucide-react"
+import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 import {
@@ -20,13 +21,13 @@ export function Hero() {
           compromised version, and when you were exposed.
         </p>
         <div>
-          <a
-            href="#"
+          <Link
+            href="/scan"
             className={cn(buttonVariants({ size: "lg" }), "gap-2")}
           >
             Scan a repository
             <ArrowRight data-icon="inline-end" />
-          </a>
+          </Link>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <HandFist className="size-5" />

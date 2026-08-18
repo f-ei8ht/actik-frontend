@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -23,13 +24,13 @@ export function Platform() {
           Everything you need to catch a compromised dependency.
         </h2>
         <div className="mt-8">
-          <a
-            href="#"
+          <Link
+            href="/scan"
             className={cn(buttonVariants({ size: "lg" }), "gap-2")}
           >
             Scan a repository
             <ArrowRight data-icon="inline-end" />
-          </a>
+          </Link>
         </div>
       </div>
 
