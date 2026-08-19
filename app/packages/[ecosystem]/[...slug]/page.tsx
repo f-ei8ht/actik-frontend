@@ -158,6 +158,7 @@ function PackageClient() {
               {result.advisories.map((advisory) => {
                 const url = advisoryUrl(advisory.id)
                 const fix = advisory.fixedVersions[result.package]
+                const introduced = advisory.introducedVersions[result.package]
                 return (
                   <Card key={advisory.id} className="rounded-lg">
                     <CardHeader>
@@ -183,6 +184,11 @@ function PackageClient() {
                             OSV entry
                             <ExternalLink data-icon="inline-end" />
                           </a>
+                        )}
+                        {introduced && (
+                          <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-foreground">
+                            vulnerable since {introduced}
+                          </code>
                         )}
                         {fix && (
                           <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-foreground">

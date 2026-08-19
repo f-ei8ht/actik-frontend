@@ -119,6 +119,7 @@ export interface InvestigateAdvisory {
   modifiedAt: string
   references: string
   fixedVersions: Record<string, string>
+  introducedVersions: Record<string, string>
   affectedVersions: Array<{ name: string; version: string; ecosystem: string }>
 }
 
