@@ -34,6 +34,9 @@ export const metadata: Metadata = {
   title: "actik",
   description:
     "See the blast radius of a compromised dependency — powered by HydraDB",
+  icons: {
+    icon: "/graph.svg",
+  },
 }
 
 export default function RootLayout({

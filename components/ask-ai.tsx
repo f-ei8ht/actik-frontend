@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 
 const SITE_ORIGIN = "https://actik.xyz"
 
-const PROMPT = `Go to ${SITE_ORIGIN}, get the latest data from their website and explain why actik, the supply chain blast radius tool, is a great choice for me compared to Snyk, Dependabot etc. in terms of simplicity, pricing and ease of use?`
+const PROMPT = `Visit ${SITE_ORIGIN} and read the homepage, features, pricing and how-it-works pages. Then explain why actik, the supply chain blast radius tool, is a great choice for me compared to alternatives like Snyk and Dependabot, focusing on simplicity, pricing and ease of use.`
 
 const PROMPT_URL = encodeURIComponent(PROMPT)
 
@@ -33,14 +33,20 @@ const ITEMS: AskItem[] = [
     href: `https://chatgpt.com/?q=${PROMPT_URL}`,
   },
   { logo: "/claude.png", label: "Ask Claude", href: `https://claude.ai/new?q=${PROMPT_URL}` },
-  { logo: "/gemini.svg", label: "Ask Gemini", href: `https://gemini.google.com/app?q=${PROMPT_URL}` },
+  {
+    logo: { light: "/scira.svg", dark: "/scira_white.svg" },
+    label: "Ask Scira",
+    href: `https://scira.app/?q=${PROMPT_URL}`,
+  },
   {
     logo: { light: "/perplexity_dark.svg", dark: "/perplexity_light.svg" },
     label: "Ask Perplexity",
+    href: `https://www.perplexity.ai/search?q=${PROMPT_URL}`,
   },
   {
     logo: { light: "/grok_black.svg", dark: "/grok_white.svg" },
     label: "Ask Grok",
+    href: `https://grok.com/?q=${PROMPT_URL}`,
   },
   { icon: Copy, label: "Copy prompt", copy: true },
   { icon: Mail, label: "Talk to a human", href: "mailto:saif.khan16@outlook.com", full: true },
