@@ -45,7 +45,7 @@ const FAQS = [
 
 export function Faq() {
   return (
-    <section className="border-t border-border/40">
+    <section id="faq" className="border-t border-border/40">
       <div className="px-6 py-28 lg:px-16">
         <div className="mx-auto max-w-2xl text-left">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">

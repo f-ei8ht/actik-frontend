@@ -1,6 +1,7 @@
 import { ArrowRight, HandFist } from "lucide-react"
 import Link from "next/link"
 
+import { HeroScan } from "@/components/hero-scan"
 import { buttonVariants } from "@/components/ui/button"
 import {
   Tooltip,
@@ -62,6 +63,9 @@ export function Hero() {
           alt="Supply chain visualization"
           className="size-full object-cover"
         />
+        <div className="absolute inset-0 flex items-center justify-center p-8">
+          <HeroScan />
+        </div>
       </div>
     </section>
   )

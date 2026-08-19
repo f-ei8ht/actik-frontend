@@ -10,8 +10,7 @@ const COLUMNS = [
   {
     title: "Product",
     links: [
-      { label: "How it works", href: "#" },
-      { label: "Features", href: "#features" },
+      { label: "How it works", href: "/how-it-works" },
       { label: "Scanner", href: "#scanner" },
       { label: "FAQ", href: "#faq" },
     ],
@@ -27,8 +26,8 @@ const COLUMNS = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
       { label: "Sitemap", href: "/sitemap.xml" },
     ],
   },

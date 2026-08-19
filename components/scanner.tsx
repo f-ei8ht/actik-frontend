@@ -28,7 +28,7 @@ export function Scanner() {
   }
 
   return (
-    <section className="border-t border-border/40">
+    <section id="scanner" className="border-t border-border/40">
       <div className="px-6 py-28 text-center lg:px-16">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
           Open source first

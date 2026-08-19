@@ -1,6 +1,7 @@
 "use client"
 
-import { Bot, Copy, Mail, Search, Sparkles, Star, Zap } from "lucide-react"
+import { Check, Copy, Mail } from "lucide-react"
+import { useState } from "react"
 import type { ComponentType } from "react"
 
 import { cn } from "@/lib/utils"
@@ -11,8 +12,14 @@ const PROMPT = `Go to ${SITE_ORIGIN}, get the latest data from their website and
 
 const PROMPT_URL = encodeURIComponent(PROMPT)
 
+interface LogoPair {
+  light: string
+  dark?: string
+}
+
 interface AskItem {
-  icon: ComponentType<{ className?: string }>
+  icon?: ComponentType<{ className?: string }>
+  logo?: LogoPair | string
   label: string
   href?: string
   copy?: boolean
@@ -20,18 +27,32 @@ interface AskItem {
 }
 
 const ITEMS: AskItem[] = [
-  { icon: Sparkles, label: "Ask ChatGPT", href: `https://chatgpt.com/?q=${PROMPT_URL}` },
-  { icon: Bot, label: "Ask Claude", href: `https://claude.ai/new?q=${PROMPT_URL}` },
-  { icon: Star, label: "Ask Gemini", href: `https://gemini.google.com/app?q=${PROMPT_URL}` },
-  { icon: Search, label: "Ask Perplexity" },
-  { icon: Zap, label: "Ask Grok" },
+  {
+    logo: { light: "/openai_black.svg", dark: "/openai_white.svg" },
+    label: "Ask ChatGPT",
+    href: `https://chatgpt.com/?q=${PROMPT_URL}`,
+  },
+  { logo: "/claude.png", label: "Ask Claude", href: `https://claude.ai/new?q=${PROMPT_URL}` },
+  { logo: "/gemini.svg", label: "Ask Gemini", href: `https://gemini.google.com/app?q=${PROMPT_URL}` },
+  {
+    logo: { light: "/perplexity_dark.svg", dark: "/perplexity_light.svg" },
+    label: "Ask Perplexity",
+  },
+  {
+    logo: { light: "/grok_black.svg", dark: "/grok_white.svg" },
+    label: "Ask Grok",
+  },
   { icon: Copy, label: "Copy prompt", copy: true },
   { icon: Mail, label: "Talk to a human", href: "mailto:saif.khan16@outlook.com", full: true },
 ]
 
 export function AskAi() {
+  const [copied, setCopied] = useState(false)
+
   const copyPrompt = async () => {
     await navigator.clipboard.writeText(PROMPT)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   return (
@@ -59,6 +80,42 @@ export function AskAi() {
                 index % 3 !== 0 && "border-l border-border/40",
                 item.full && "col-span-3 border-l-0"
               )
+
+              const renderLogo = () => {
+                if (item.logo) {
+                  const imgClass = "size-8 object-contain"
+                  if (typeof item.logo === "string") {
+                    return (
+                      <img
+                        src={item.logo}
+                        alt={item.label}
+                        className={imgClass}
+                      />
+                    )
+                  }
+                  return (
+                    <>
+                      <img
+                        src={item.logo.light}
+                        alt={item.label}
+                        className={cn(imgClass, "dark:hidden")}
+                      />
+                      {item.logo.dark && (
+                        <img
+                          src={item.logo.dark}
+                          alt={item.label}
+                          className={cn("hidden", imgClass, "dark:block")}
+                        />
+                      )}
+                    </>
+                  )
+                }
+                if (Icon) {
+                  return <Icon className="size-8 text-foreground" />
+                }
+                return null
+              }
+
               if (item.copy) {
                 return (
                   <button
@@ -67,9 +124,20 @@ export function AskAi() {
                     onClick={copyPrompt}
                     className={className}
                   >
-                    <Icon className="size-6 text-foreground" />
+                    <Check
+                      className={cn(
+                        "size-8 text-emerald-500",
+                        !copied && "hidden"
+                      )}
+                    />
+                    <Copy
+                      className={cn(
+                        "size-8 text-foreground",
+                        copied && "hidden"
+                      )}
+                    />
                     <span className="text-sm text-muted-foreground">
-                      {item.label}
+                      {copied ? "Copied!" : item.label}
                     </span>
                   </button>
                 )
@@ -83,7 +151,7 @@ export function AskAi() {
                   className={className}
                   aria-disabled={!item.href}
                 >
-                  <Icon className="size-6 text-foreground" />
+                  {renderLogo()}
                   <span className="text-sm text-muted-foreground">
                     {item.label}
                   </span>

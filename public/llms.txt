@@ -5,6 +5,10 @@
 ## Product
 
 - [Homepage](https://actik.xyz/)
+- [How it works](https://actik.xyz/how-it-works)
+- [Scan](https://actik.xyz/scan)
+- [Live watch](https://actik.xyz/watch)
+- [Packages](https://actik.xyz/packages)
 - [GitHub](https://github.com/f-ei8ht/actik-backend)
 
 ## What actik does
@@ -22,6 +26,7 @@ actik stores a graph of packages, versions, dependencies, advisories, and reposi
 
 ## Important links
 
-- [Features](https://actik.xyz/#features)
 - [FAQ](https://actik.xyz/#faq)
+- [Privacy Policy](https://actik.xyz/privacy)
+- [Terms of Service](https://actik.xyz/terms)
 - [GitHub repository](https://github.com/f-ei8ht/actik-backend)

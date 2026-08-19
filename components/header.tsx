@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { title: "Packages", url: "/packages" },
   { title: "Scan", url: "/scan" },
   { title: "Watch", url: "/watch" },
-  { title: "How it works", url: "#" },
+  { title: "How it works", url: "/how-it-works" },
 ]
 
 export function Header() {
