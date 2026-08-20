@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ExternalLink, Menu, X } from "lucide-react"
 
+import { HydraIndicator } from "@/components/hydra-indicator"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -41,6 +42,8 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
+          <HydraIndicator />
+
           <a
             href={PROJECT_URL}
             target="_blank"
