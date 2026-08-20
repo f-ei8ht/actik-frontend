@@ -1,5 +1,4 @@
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { BackLink } from "@/components/back-link"
 
 import { PageFrame } from "@/components/page-frame"
 
@@ -41,13 +40,7 @@ const SECTIONS = [
 export default function TermsPage() {
   return (
     <PageFrame>
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft data-icon="inline-start" />
-        Back
-      </Link>
+      <BackLink />
 
       <h1 className="mt-6 font-newsreader text-4xl font-normal leading-tight text-foreground sm:text-5xl">
         Terms of Service

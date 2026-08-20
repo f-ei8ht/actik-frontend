@@ -2,13 +2,13 @@
 
 import {
   AlertTriangle,
-  ArrowLeft,
   Check,
   RefreshCw,
 } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Suspense, useEffect, useState } from "react"
 
+import { BackLink } from "@/components/back-link"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -91,16 +91,7 @@ function ScanClient() {
     return (
       <ScanFrame>
         <div className="mx-auto flex max-w-md flex-col items-center gap-4 py-20 text-center">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="self-start"
-            onClick={() => router.push("/")}
-          >
-            <ArrowLeft data-icon="inline-start" />
-            Back
-          </Button>
+          <BackLink className="self-start" />
           <p className="text-lg font-medium text-foreground">Scan a repository</p>
           <form onSubmit={rescan} className="flex w-full items-center gap-3">
             <Input
@@ -133,15 +124,7 @@ function ScanClient() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
           <div className="mt-6 flex items-center gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => router.push("/")}
-            >
-              <ArrowLeft data-icon="inline-start" />
-              Back
-            </Button>
+            <BackLink />
             <form onSubmit={rescan} className="flex flex-1 items-center gap-2">
               <Input
                 value={input}
@@ -170,15 +153,7 @@ function ScanClient() {
       <div className="flex flex-col gap-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => router.push("/")}
-            >
-              <ArrowLeft data-icon="inline-start" />
-              Back
-            </Button>
+            <BackLink />
             <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
               {result.repo.label}
             </h1>

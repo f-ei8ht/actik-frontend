@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *, .hydra *));
 
 @theme inline {
   --color-background: var(--background);
@@ -168,6 +168,60 @@
   --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
 }
 
+.hydra {
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #171819;
+  --card-foreground: #ffffff;
+  --popover: #171819;
+  --popover-foreground: #ffffff;
+  --primary: #ff581f;
+  --primary-foreground: #ffffff;
+  --secondary: #363636;
+  --secondary-foreground: #ffffff;
+  --muted: #363636;
+  --muted-foreground: #979797;
+  --accent: #363636;
+  --accent-foreground: #ffffff;
+  --destructive: #ff4d4d;
+  --destructive-foreground: #ffffff;
+  --border: #363636;
+  --input: #363636;
+  --ring: #ff581f;
+  --chart-1: #ff581f;
+  --chart-2: #ff8a5c;
+  --chart-3: #979797;
+  --chart-4: #ffb599;
+  --chart-5: #363636;
+  --sidebar: #171819;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff581f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #363636;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #363636;
+  --sidebar-ring: #ff581f;
+  --font-sans: Inter, sans-serif;
+  --font-serif: Merriweather, serif;
+  --font-mono: JetBrains Mono, monospace;
+  --logo-chip: #363636;
+  --radius: 0.5rem;
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 8px;
+  --shadow-spread: -1px;
+  --shadow-opacity: 0.1;
+  --shadow-color: hsl(0 0% 0%);
+  --shadow-2xs: 0px 4px 8px -1px hsl(0 0% 0% / 0.4);
+  --shadow-xs: 0px 4px 8px -1px hsl(0 0% 0% / 0.4);
+  --shadow-sm: 0px 4px 8px -1px hsl(0 0% 0% / 0.4), 0px 1px 2px -2px hsl(0 0% 0% / 0.4);
+  --shadow: 0px 4px 8px -1px hsl(0 0% 0% / 0.4), 0px 1px 2px -2px hsl(0 0% 0% / 0.4);
+  --shadow-md: 0px 4px 8px -1px hsl(0 0% 0% / 0.4), 0px 2px 4px -2px hsl(0 0% 0% / 0.4);
+  --shadow-lg: 0px 4px 8px -1px hsl(0 0% 0% / 0.4), 0px 4px 6px -2px hsl(0 0% 0% / 0.4);
+  --shadow-xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.4), 0px 8px 10px -2px hsl(0 0% 0% / 0.4);
+  --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.5);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -192,6 +246,13 @@
   --sigma-controls-color: var(--foreground);
 }
 .dark {
+  --sigma-background-color: var(--background);
+  --sigma-controls-background-color: var(--card);
+  --sigma-controls-background-color-hover: var(--muted);
+  --sigma-controls-border-color: var(--border);
+  --sigma-controls-color: var(--foreground);
+}
+.hydra {
   --sigma-background-color: var(--background);
   --sigma-controls-background-color: var(--card);
   --sigma-controls-background-color-hover: var(--muted);

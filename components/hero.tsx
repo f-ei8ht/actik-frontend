@@ -57,11 +57,11 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative hidden overflow-hidden bg-muted/50 lg:block">
+      <div className="relative min-h-96 overflow-hidden bg-muted/50">
         <img
           src="/boston.jpg"
           alt="Supply chain visualization"
-          className="size-full object-cover"
+          className="absolute inset-0 size-full object-cover"
         />
         <div className="absolute inset-0 flex items-center justify-center p-8">
           <HeroScan />

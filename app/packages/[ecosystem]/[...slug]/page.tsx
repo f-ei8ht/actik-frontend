@@ -1,14 +1,14 @@
 "use client"
 
-import { AlertTriangle, ArrowLeft, ExternalLink, Search } from "lucide-react"
-import { useParams, useRouter } from "next/navigation"
+import { AlertTriangle, ExternalLink, Search } from "lucide-react"
+import { useParams } from "next/navigation"
 import { Suspense, useEffect, useState } from "react"
 
+import { BackLink } from "@/components/back-link"
 import { PageFrame } from "@/components/page-frame"
 import { BlastGraph } from "@/components/scan/blast-graph"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { SeverityBadge } from "@/components/scan/severity-badge"
@@ -45,7 +45,6 @@ function PackageLoading() {
 }
 
 function PackageClient() {
-  const router = useRouter()
   const params = useParams<{ ecosystem: string; slug: string[] }>()
   const slug = Array.isArray(params.slug) ? params.slug : []
   const last = slug[slug.length - 1] ?? ""
@@ -96,15 +95,9 @@ function PackageClient() {
             <AlertTitle>Investigation failed</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
           </Alert>
-          <Button
-            type="button"
-            variant="outline"
-            className="mt-6"
-            onClick={() => router.push("/packages")}
-          >
-            <ArrowLeft data-icon="inline-start" />
-            Back
-          </Button>
+          <div className="mt-6">
+            <BackLink />
+          </div>
         </div>
       </PageFrame>
     )
@@ -116,15 +109,7 @@ function PackageClient() {
     <PageFrame>
       <div className="flex flex-col gap-10">
         <div>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={() => router.push("/packages")}
-        >
-          <ArrowLeft data-icon="inline-start" />
-          Back
-        </Button>
+        <BackLink />
         <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
             <span className="font-mono">{result.package}</span>
             <span className="text-destructive">@{result.version}</span>

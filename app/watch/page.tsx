@@ -1,14 +1,14 @@
 "use client"
 
-import { ArrowLeft, Bell, RefreshCw, ShieldAlert } from "lucide-react"
-import Link from "next/link"
+import { Bell, RefreshCw, ShieldAlert } from "lucide-react"
 import { Suspense, useCallback, useEffect, useState } from "react"
 
+import { BackLink } from "@/components/back-link"
 import { PageFrame } from "@/components/page-frame"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { SeverityBadge } from "@/components/scan/severity-badge"
 import { getRecentIncidents, getWatchStatus, runLiveWatch } from "@/lib/api"
@@ -104,12 +104,7 @@ function WatchClient() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/scan">
-              <Button variant="outline" size="sm">
-                <ArrowLeft data-icon="inline-start" />
-                Back to scan
-              </Button>
-            </Link>
+            <BackLink />
             <Button onClick={handleRun} disabled={running} size="sm">
               <RefreshCw data-icon="inline-start" className={running ? "animate-spin" : ""} />
               {running ? <span className="shimmer">Running…</span> : "Run watch"}

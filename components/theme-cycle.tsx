@@ -5,11 +5,12 @@ import { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
-const ORDER = ["light", "dark", "system"] as const
+const ORDER = ["light", "dark", "hydra", "system"] as const
 
 const LABEL: Record<(typeof ORDER)[number], string> = {
   light: "Light",
   dark: "Dark",
+  hydra: "Hydra",
   system: "System",
 }
 

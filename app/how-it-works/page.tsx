@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { buttonVariants } from "@/components/ui/button"
+import { BackLink } from "@/components/back-link"
 import { Card, CardContent } from "@/components/ui/card"
 import { GraphDemo } from "@/components/how-it-works/graph-demo"
 import { ScanDemo } from "@/components/how-it-works/scan-demo"
@@ -147,7 +148,8 @@ export default function HowItWorksPage() {
       <div className="flex w-full max-w-7xl flex-col border border-border/40">
         <main className="flex flex-1 flex-col">
           <section className="px-6 py-24 lg:px-16">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            <BackLink className="-ml-2" />
+            <p className="mt-8 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
               How it works
             </p>
             <h1 className="mt-6 max-w-3xl font-newsreader text-5xl font-normal leading-tight text-foreground sm:text-6xl">

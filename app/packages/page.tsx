@@ -1,10 +1,11 @@
 "use client"
 
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
+import { BackLink } from "@/components/back-link"
 import { PageFrame } from "@/components/page-frame"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -40,15 +41,7 @@ export default function PackagesPage() {
 
   return (
     <PageFrame>
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        onClick={() => router.push("/")}
-      >
-        <ArrowLeft data-icon="inline-start" />
-        Back
-      </Button>
+      <BackLink />
 
       <h1 className="mt-6 text-3xl font-semibold tracking-tight text-foreground">
         Look up a package
