@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Suspense, useEffect, useState } from "react"
 
 import { BackLink } from "@/components/back-link"
+import { RepoProviderIcon } from "@/components/repo-provider-icon"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,6 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { BreakdownChart } from "@/components/scan/breakdown-chart"
 import { FindingCard } from "@/components/scan/finding-card"
 import { ScoreRing } from "@/components/scan/score-ring"
+import { detectRepoHost, validateRepo } from "@/lib/repo"
 import { useScanStore } from "@/lib/stores/scans"
 
 export default function ScanPage() {
@@ -67,11 +69,12 @@ function ScanClient() {
   const repo = searchParams.get("repo") ?? ""
 
   const [input, setInput] = useState(repo)
+  const [error, setError] = useState<string | null>(null)
 
   const scan = useScanStore((state) => state.scan)
   const result = useScanStore((state) => state.getScan(repo))
   const loading = useScanStore((state) => state.getPending(repo))
-  const error = useScanStore((state) => state.getError(repo))
+  const scanError = useScanStore((state) => state.getError(repo))
 
   useEffect(() => {
     if (!repo) return
@@ -83,9 +86,33 @@ function ScanClient() {
   const rescan = (event: React.FormEvent) => {
     event.preventDefault()
     const value = input.trim()
-    if (!value) return
+    const invalid = validateRepo(value)
+    if (invalid) {
+      setError(invalid)
+      return
+    }
+    setError(null)
     router.push(`/scan?repo=${encodeURIComponent(value)}`)
   }
+
+  const repoInput = (
+    <div className="relative w-full">
+      {detectRepoHost(input) && (
+        <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+          <RepoProviderIcon host={detectRepoHost(input)} className="size-5" />
+        </span>
+      )}
+      <Input
+        value={input}
+        onChange={(e) => {
+          setInput(e.target.value)
+          if (error) setError(null)
+        }}
+        placeholder="enter your GitHub or GitLab public repo"
+        className={`w-full ${detectRepoHost(input) ? "pl-11" : ""}`}
+      />
+    </div>
+  )
 
   if (!repo) {
     return (
@@ -93,19 +120,19 @@ function ScanClient() {
         <div className="mx-auto flex max-w-md flex-col items-center gap-4 py-20 text-center">
           <BackLink className="self-start" />
           <p className="text-lg font-medium text-foreground">Scan a repository</p>
-          <form onSubmit={rescan} className="flex w-full items-center gap-3">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="github.com/org/repo"
-              className="flex-1"
-            />
-            <Button type="submit" className="shrink-0">
-              Scan
-            </Button>
+          <form onSubmit={rescan} className="flex w-full flex-col items-center gap-3">
+            <div className="flex w-full items-center gap-3">
+              <div className="flex-1">{repoInput}</div>
+              <Button type="submit" className="shrink-0">
+                Scan
+              </Button>
+            </div>
+            {error && (
+              <p className="w-full text-left text-sm text-destructive">{error}</p>
+            )}
           </form>
           <p className="text-sm text-muted-foreground">
-            Works with GitHub, GitLab, Bitbucket, and Codeberg.
+            Currently works with GitHub and GitLab public repositories only.
           </p>
         </div>
       </ScanFrame>
@@ -114,28 +141,28 @@ function ScanClient() {
 
   if (loading) return <ScanLoading />
 
-  if (error) {
+  if (scanError) {
     return (
       <ScanFrame>
         <div className="mx-auto max-w-lg py-20">
           <Alert variant="destructive">
             <AlertTriangle />
             <AlertTitle>Scan failed</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
+            <AlertDescription>{scanError}</AlertDescription>
           </Alert>
           <div className="mt-6 flex items-center gap-3">
             <BackLink />
-            <form onSubmit={rescan} className="flex flex-1 items-center gap-2">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="github.com/org/repo"
-                className="flex-1"
-              />
-              <Button type="submit" variant="outline">
-                <RefreshCw data-icon="inline-start" />
-                Retry
-              </Button>
+            <form onSubmit={rescan} className="flex flex-1 flex-col gap-2">
+              <div className="flex w-full items-center gap-2">
+                <div className="flex-1">{repoInput}</div>
+                <Button type="submit" variant="outline" className="shrink-0">
+                  <RefreshCw data-icon="inline-start" />
+                  Retry
+                </Button>
+              </div>
+              {error && (
+                <p className="text-left text-sm text-destructive">{error}</p>
+              )}
             </form>
           </div>
         </div>
@@ -162,16 +189,16 @@ function ScanClient() {
               {result.latencyMs}ms
             </p>
           </div>
-          <form onSubmit={rescan} className="flex w-full max-w-sm items-center gap-2">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="github.com/org/repo"
-              className="flex-1"
-            />
-            <Button type="submit" variant="outline" className="shrink-0">
-              Rescan
-            </Button>
+          <form onSubmit={rescan} className="flex w-full max-w-sm flex-col items-stretch gap-2">
+            <div className="flex w-full items-center gap-2">
+              <div className="flex-1">{repoInput}</div>
+              <Button type="submit" variant="outline" className="shrink-0">
+                Rescan
+              </Button>
+            </div>
+            {error && (
+              <p className="text-left text-sm text-destructive">{error}</p>
+            )}
           </form>
         </div>
 

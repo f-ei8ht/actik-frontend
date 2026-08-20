@@ -35,6 +35,10 @@ const SECTIONS = [
     title: "8. Governing law",
     body: "These terms are governed by the laws applicable in the jurisdiction in which actik operates, without regard to conflict-of-law principles.",
   },
+  {
+    title: "9. Photo credits",
+    body: "The photographic imagery used on this site is sourced from Unsplash and is licensed under the Unsplash License. The images and their respective authors are credited as follows.",
+  },
 ]
 
 export default function TermsPage() {
@@ -60,6 +64,78 @@ export default function TermsPage() {
             </p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-10 flex flex-col gap-3">
+        <h2 className="text-lg font-semibold tracking-tight text-foreground">
+          Image attributions
+        </h2>
+        <ul className="flex max-w-2xl flex-col gap-2 text-sm leading-relaxed text-muted-foreground">
+          <li>
+            Photo by{" "}
+            <a
+              href="https://unsplash.com/@bostonpubliclibrary?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Boston Public Library
+            </a>{" "}
+            on{" "}
+            <a
+              href="https://unsplash.com/photos/a-painting-of-a-mountain-range-with-a-pine-tree-in-the-foreground-MkHx6zgSLUo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Unsplash
+            </a>
+          </li>
+          <li>
+            Photo by{" "}
+            <a
+              href="https://unsplash.com/@birminghammuseumstrust?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Birmingham Museums Trust
+            </a>{" "}
+            on{" "}
+            <a
+              href="https://unsplash.com/photos/a-painting-of-a-field-with-cows-in-the-distance-A0XxWwexfM8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Unsplash
+            </a>
+          </li>
+          <li>
+            Photo by{" "}
+            <a
+              href="https://unsplash.com/@sorayaziziartist?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Soraya Silvestri
+            </a>{" "}
+            on{" "}
+            <a
+              href="https://unsplash.com/photos/a-painting-of-a-sky-filled-with-clouds-q__FqM83zlU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Unsplash
+            </a>
+          </li>
+          <li>
+            Photo by{" "}
+            <a
+              href="https://unsplash.com/@artchicago?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Art Institute of Chicago
+            </a>{" "}
+            on{" "}
+            <a
+              href="https://unsplash.com/photos/deer-grazing-on-a-grassy-hillside-with-mountains-behind-ef49nHKkgTI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              className="text-primary underline-offset-2 hover:underline"
+            >
+              Unsplash
+            </a>
+          </li>
+        </ul>
       </div>
 
       <div className="mt-12 max-w-2xl rounded-lg border border-border/40 px-5 py-4 text-sm text-muted-foreground">

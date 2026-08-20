@@ -38,7 +38,7 @@ The heart of the product. One page that pulls the full investigation from `GET /
 
 ### Repository scanner (/scan)
 
-Enter any public GitHub, GitLab, Bitbucket or Codeberg repository. The app fetches its lockfiles, resolves exact versions, and shows an exposure score, every finding, and a minimal fix set with verified upgrade commands.
+Enter any public GitHub or GitLab repository. The app fetches its lockfiles, resolves exact versions, and shows an exposure score, every finding, and a minimal fix set with verified upgrade commands.
 
 ### Live watch (/watch)
 

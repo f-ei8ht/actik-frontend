@@ -70,7 +70,7 @@ const FAQS = [
   {
     question: "Which hosts can I scan?",
     answer:
-      "GitHub, GitLab, Bitbucket, and Codeberg. actik reads the lockfiles directly from the repository, so there is no cloning, no API token, and no setup.",
+      "GitHub and GitLab, for now. actik reads the lockfiles directly from the repository, so there is no cloning, no API token, and no setup.",
   },
   {
     question: "What does the exposure score mean?",
@@ -179,8 +179,8 @@ export default function HowItWorksPage() {
 
           <Section
             eyebrow="Step 1 · Scan"
-            title="Point it at any public repository."
-            lede="actik reads the lockfiles directly from GitHub, GitLab, Bitbucket, or Codeberg. No cloning, no API token, no setup."
+            title="Point it at a public repository."
+            lede="actik reads the lockfiles directly from GitHub or GitLab. No cloning, no API token, no setup."
             bg="/art.jpg"
             demo={<ScanDemo />}
           />

@@ -34,7 +34,7 @@ const FAQS = [
   {
     question: "Which hosts can I scan?",
     answer:
-      "GitHub, GitLab, Bitbucket, and Codeberg. actik reads the lockfiles directly from the repository, so there is no cloning, no API token, and no setup.",
+      "GitHub and GitLab, for now. actik reads the lockfiles directly from the repository, so there is no cloning, no API token, and no setup.",
   },
   {
     question: "Where does HydraDB come in?",

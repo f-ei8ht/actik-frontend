@@ -8,6 +8,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { RepoProviderIcon } from "@/components/repo-provider-icon"
+import { detectRepoHost, validateRepo } from "@/lib/repo"
 
 const SCANS = [
   { icon: Radar, label: "Blast radius", url: "/scan" },
@@ -19,11 +21,19 @@ const SCANS = [
 export function Scanner() {
   const router = useRouter()
   const [repo, setRepo] = useState("")
+  const [error, setError] = useState<string | null>(null)
+
+  const host = detectRepoHost(repo)
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     const value = repo.trim()
-    if (!value) return
+    const invalid = validateRepo(value)
+    if (invalid) {
+      setError(invalid)
+      return
+    }
+    setError(null)
     router.push(`/scan?repo=${encodeURIComponent(value)}`)
   }
 
@@ -34,7 +44,7 @@ export function Scanner() {
           Open source first
         </p>
         <h2 className="mx-auto mt-6 max-w-2xl font-newsreader text-4xl font-normal leading-tight text-foreground sm:text-5xl">
-          Point it at any public repository.
+          Point it at a public repository.
         </h2>
         <p className="mx-auto mt-4 max-w-xl font-serif text-base leading-relaxed text-muted-foreground">
           Paste a link and actik reads the lockfiles, resolves the exact
@@ -49,22 +59,37 @@ export function Scanner() {
 
             <form
               onSubmit={onSubmit}
-              className="mx-auto flex w-full max-w-xl items-center gap-3"
+              className="mx-auto flex w-full max-w-xl flex-col items-center gap-3"
             >
-              <Input
-                value={repo}
-                onChange={(event) => setRepo(event.target.value)}
-                placeholder="github.com/org/repo"
-                className="flex-1"
-              />
-              <Button type="submit" className="shrink-0">
-                Scan
-                <ArrowRight data-icon="inline-end" />
-              </Button>
+              <div className="flex w-full items-center gap-3">
+                <div className="relative flex-1">
+                  <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+                    {host && <RepoProviderIcon host={host} className="size-5" />}
+                  </span>
+                  <Input
+                    value={repo}
+                    onChange={(event) => {
+                      setRepo(event.target.value)
+                      if (error) setError(null)
+                    }}
+                    placeholder="enter your GitHub or GitLab public repo"
+                    className={`w-full ${host ? "pl-11" : ""}`}
+                  />
+                </div>
+                <Button type="submit" className="shrink-0">
+                  Scan
+                  <ArrowRight data-icon="inline-end" />
+                </Button>
+              </div>
+              {error && (
+                <p className="w-full text-left text-sm text-destructive">
+                  {error}
+                </p>
+              )}
             </form>
 
             <p className="text-sm text-muted-foreground">
-              Works with GitHub, GitLab, Bitbucket, and Codeberg.
+              Currently works with GitHub and GitLab public repositories only.
             </p>
 
             <div className="flex flex-wrap justify-center gap-3">
