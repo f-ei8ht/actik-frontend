@@ -71,6 +71,7 @@ export function HydraIndicator({ className }: { className?: string }) {
 
       const ch = event.key.toLowerCase()
       if (ch === "h") {
+        event.preventDefault()
         openAndType(ch)
       }
     }
