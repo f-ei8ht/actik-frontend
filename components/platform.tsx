@@ -34,12 +34,23 @@ export function Platform() {
         </div>
       </div>
 
-      <div className="border-t border-border/40">
+      <div className="relative border-t border-border/40">
         <img
           src="/art.jpg"
           alt="actik dashboard"
           className="w-full object-cover"
         />
+        <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-12">
+          <video
+            controls
+            preload="metadata"
+            className="w-full max-w-4xl overflow-hidden rounded-2xl border border-border/60 bg-black shadow-2xl"
+            aria-label="actik demo video"
+          >
+            <source src="/hydradb_saif.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
     </section>
   )
