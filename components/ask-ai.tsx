@@ -77,7 +77,7 @@ export function AskAi() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:border-l lg:border-border/40">
+        <div className="flex flex-col border-t border-border/40 lg:border-l lg:border-t-0">
           <div className="grid flex-1 grid-cols-3">
             {ITEMS.map((item, index) => {
               const Icon = item.icon

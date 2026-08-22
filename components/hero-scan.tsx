@@ -128,7 +128,7 @@ export function HeroScan() {
         <span className="size-2.5 rounded-full bg-red-500" />
         <span className="size-2.5 rounded-full bg-amber-500" />
         <span className="size-2.5 rounded-full bg-emerald-500" />
-        <span className="ml-2 font-mono text-xs text-muted-foreground">
+        <span className="ml-2 min-w-0 flex-1 truncate font-mono text-xs text-muted-foreground">
           GET /api/investigate/npm/lodash/4.17.20
         </span>
       </div>
